@@ -2041,3 +2041,29 @@ body.chapter-music-active #btn-lang {
     padding-top: 72px !important;
   }
 }
+
+/* Force correct wheat color on ALL text inside dark letter chapters */
+#chapter-4  *,
+#chapter-4b * {
+  color: #F5DEB3 !important;
+}
+
+#chapter-4  .letter-title,
+#chapter-4b .letter-title {
+  color: rgba(232, 184, 125, 0.55) !important;
+  font-size: 0.7rem !important;
+}
+
+#chapter-4  .letter-signature,
+#chapter-4b .letter-signature {
+  color: rgba(232, 184, 125, 0.75) !important;
+}
+
+/* Cursor blink on the typing element */
+#chapter-4  .letter-body.is-typing::after,
+#chapter-4b .letter-body.is-typing::after {
+  content: '|';
+  color: rgba(232, 184, 125, 0.7);
+  -webkit-animation: blink 0.8s step-end infinite;
+  animation: blink 0.8s step-end infinite;
+}

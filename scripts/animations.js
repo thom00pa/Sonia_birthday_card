@@ -211,24 +211,22 @@
       }
 
       if (activeEl && activeEl.id === 'chapter-4') {
-        const body = activeEl.querySelector('[data-i18n-letter]');
-        if (body) {
-          const text = (typeof I18n !== 'undefined' && I18n.getLetter)
+        var body = activeEl.querySelector('[data-i18n-letter]');
+        if (body && !body._typed) {
+          body._typed = true;
+          var text = (typeof I18n !== 'undefined' && I18n.getLetter)
             ? I18n.getLetter() : '';
-          body.textContent = '';
-          body.style.opacity = '1';
-          this.revealByParagraph(body, text);
+          this._typewriter(body, text);
         }
       }
 
       if (activeEl && activeEl.id === 'chapter-4b') {
-        const body2 = activeEl.querySelector('[data-i18n-letter-p2]');
-        if (body2) {
-          const text2 = (typeof I18n !== 'undefined' && I18n.getLetter2)
+        var body2 = activeEl.querySelector('[data-i18n-letter-p2]');
+        if (body2 && !body2._typed) {
+          body2._typed = true;
+          var text2 = (typeof I18n !== 'undefined' && I18n.getLetter2)
             ? I18n.getLetter2() : '';
-          body2.textContent = '';
-          body2.style.opacity = '1';
-          this.revealByParagraph(body2, text2);
+          this._typewriter(body2, text2);
         }
       }
 
@@ -237,13 +235,13 @@
       }
     },
 
-    resetTypewriter: function () {
-      var b1 = document.querySelector('[data-i18n-letter]');
-      var b2 = document.querySelector('[data-i18n-letter-p2]');
-      if (b1) b1.innerHTML = '';
-      if (b2) b2.innerHTML = '';
-      this._letterTyped   = false;
-      this._letter2Typed  = false;
+    resetTypewriter: function() {
+      try {
+        var b1 = document.querySelector('[data-i18n-letter]');
+        var b2 = document.querySelector('[data-i18n-letter-p2]');
+        if (b1) { b1.textContent = ''; b1._typed = false; }
+        if (b2) { b2.textContent = ''; b2._typed = false; }
+      } catch(e) {}
     },
 
     _sizeCanvas: function () {
@@ -600,6 +598,26 @@
           p.style.transform = 'translateY(0)';
         }, 200 + i * 650);
       });
+    },
+
+    _typewriter: function(element, text, onDone) {
+      element.textContent = '';
+      element.style.opacity = '1';
+      element.classList.add('is-typing');
+      var i = 0;
+      var self = this;
+      // 11ms per character — fast enough to feel alive, slow enough to see
+      var tick = function() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(tick, 11);
+        } else {
+          element.classList.remove('is-typing');
+          if (typeof onDone === 'function') onDone();
+        }
+      };
+      setTimeout(tick, 150);
     }
   };
 })();
