@@ -208,6 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           if (Animations.resetTypewriter) Animations.resetTypewriter();
           I18n.toggle();
+          const bL2 = document.getElementById('btn-lang');
+          if (bL2) bL2.textContent = I18n.currentLang === 'es' ? 'EN' : 'ES';
           const c = document.getElementById('chapter-container');
           if (c) {
             c.classList.add('lang-transition');
@@ -249,9 +251,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial button labels
     try {
-      const bL2 = document.getElementById('btn-lang');
+      const bL = document.getElementById('btn-lang');
+      if (bL) bL.textContent = I18n.currentLang === 'es' ? 'EN' : 'ES';
       const bN2 = document.getElementById('nav-btn-label');
-      if (bL2) bL2.textContent = I18n.t('translate_button');
       if (bN2) bN2.textContent = '1 / ' + totalChapters;
     } catch(e) {}
 
