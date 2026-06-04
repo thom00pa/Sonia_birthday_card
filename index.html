@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,
+        maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#FAF0E6">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline';
+                 script-src 'self' 'unsafe-inline'; img-src * data: blob:;
+                 media-src *; font-src 'self' data:">
+  <title>Feliz Cumpleaños 🎂</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <!-- Loading screen — visible on boot -->
+  <div id="loading-screen" role="status" aria-label="Loading">
+    <div class="loading-inner">
+      <div class="loading-dot"></div>
+      <p class="loading-text">Cargando...</p>
+    </div>
+  </div>
+
+  <!-- Ambient particle canvas — behind everything -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Navigation tap zones — cover full screen, always on top of chapters -->
+  <div id="nav-zone-left"  aria-label="Anterior" role="button" tabindex="0"></div>
+  <div id="nav-zone-right" aria-label="Siguiente" role="button" tabindex="0"></div>
+
+  <!-- Desktop arrow buttons — visible on hover -->
+  <button id="nav-arrow-left"  class="nav-arrow" aria-label="Capítulo anterior">&#8249;</button>
+  <button id="nav-arrow-right" class="nav-arrow" aria-label="Capítulo siguiente">&#8250;</button>
+
+  <!-- Progress dots -->
+  <nav id="progress-dots" aria-label="Progreso" role="navigation"></nav>
+
+  <!-- Bottom navigation bar — always visible, works after scrolling -->
+  <nav id="nav-bottom" aria-label="Navegación de capítulos">
+    <button id="nav-btn-prev" class="nav-btn" aria-label="Capítulo anterior">
+      &#8592;
+    </button>
+    <span id="nav-btn-label">1</span>
+    <button id="nav-btn-next" class="nav-btn" aria-label="Capítulo siguiente">
+      &#8594;
+    </button>
+  </nav>
+
+  <!-- Fixed control buttons (language) -->
+  <div id="controls">
+    <button id="btn-lang"  aria-label="Cambiar idioma">Read in English</button>
+  </div>
+
+  <!-- Chapter container — all chapters stacked here -->
+  <main id="chapter-container" aria-live="polite"></main>
+
+  <script src="config.js"></script>
+  <script src="scripts/i18n.js"></script>
+  <script src="scripts/animations.js"></script>
+  <script src="scripts/sections.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
