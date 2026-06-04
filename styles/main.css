@@ -1786,3 +1786,258 @@ body.chapter-4b-active #nav-zone-left,
 body.chapter-4b-active #nav-zone-right {
   display: none !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   DEFINITIVE LAYOUT OVERRIDES — Final version
+   These rules use !important to win over any previous conflicts.
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Base chapter padding — works on all devices ───────────────
+   Explicit pixel values, no CSS variables that can fail.        */
+.chapter {
+  padding-top: 80px !important;
+  padding-bottom: 100px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* Chapter inner — always has breathing room from edges */
+.chapter-inner {
+  width: 100% !important;
+  max-width: 480px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  box-sizing: border-box !important;
+}
+
+/* Dark chapters keep their background */
+#chapter-2 {
+  background: rgba(14, 8, 6, 0.98) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border: none !important;
+}
+#chapter-4, #chapter-4b {
+  background: rgba(44, 24, 16, 0.98) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border: none !important;
+}
+
+/* Letter chapters — always scrollable with proper touch handling */
+#chapter-4, #chapter-4b {
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  overflow-y: scroll !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: contain !important;
+  touch-action: pan-y !important;
+}
+
+#chapter-4  .chapter-inner,
+#chapter-4b .chapter-inner {
+  padding-bottom: 120px !important;
+}
+
+/* Disable tap zones on letter chapters so vertical scroll works */
+body.chapter-4-active  #nav-zone-left,
+body.chapter-4-active  #nav-zone-right,
+body.chapter-4b-active #nav-zone-left,
+body.chapter-4b-active #nav-zone-right {
+  display: none !important;
+}
+
+/* ── Bottom navigation bar ──────────────────────────────────── */
+/* Reliable positioning — no env(), no transform centering       */
+#nav-bottom {
+  position: fixed !important;
+  bottom: 20px !important;
+  left: 50% !important;
+  -webkit-transform: translateX(-50%) !important;
+  transform: translateX(-50%) !important;
+  z-index: 1000 !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+  -webkit-align-items: center !important;
+  align-items: center !important;
+  gap: 4px !important;
+  background: rgba(252, 244, 234, 0.92) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(212, 132, 90, 0.2) !important;
+  border-radius: 100px !important;
+  padding: 8px 12px !important;
+  box-shadow: 0 4px 20px rgba(61, 35, 20, 0.12) !important;
+  white-space: nowrap !important;
+  max-width: calc(100vw - 40px) !important;
+}
+
+.nav-btn {
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-size: 1.1rem !important;
+  color: #D4845A !important;
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  border-radius: 100px !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+  -webkit-align-items: center !important;
+  align-items: center !important;
+  -webkit-justify-content: center !important;
+  justify-content: center !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-transition: background 0.15s ease !important;
+  transition: background 0.15s ease !important;
+}
+.nav-btn:active  { background: rgba(212,132,90,0.15) !important; }
+.nav-btn:disabled { opacity: 0.2 !important; pointer-events: none !important; }
+
+#nav-btn-label {
+  font-family: 'Garamond', Georgia, serif !important;
+  font-size: 0.78rem !important;
+  color: rgba(61, 35, 20, 0.5) !important;
+  padding: 0 6px !important;
+  min-width: 48px !important;
+  text-align: center !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Dark chapter overrides for nav */
+body.chapter-2-active #nav-bottom,
+body.chapter-4-active #nav-bottom,
+body.chapter-4b-active #nav-bottom,
+body.chapter-music-active #nav-bottom {
+  background: rgba(20, 10, 6, 0.85) !important;
+  border-color: rgba(242, 201, 138, 0.15) !important;
+}
+body.chapter-2-active .nav-btn,
+body.chapter-4-active .nav-btn,
+body.chapter-4b-active .nav-btn,
+body.chapter-music-active .nav-btn { color: rgba(245,222,179,0.85) !important; }
+body.chapter-2-active #nav-btn-label,
+body.chapter-4-active #nav-btn-label,
+body.chapter-4b-active #nav-btn-label,
+body.chapter-music-active #nav-btn-label { color: rgba(245,222,179,0.4) !important; }
+
+/* ── Language toggle button — top right, standalone ────────── */
+#btn-lang {
+  position: fixed !important;
+  top: 16px !important;
+  right: 16px !important;
+  z-index: 1001 !important;
+  background: rgba(252, 244, 234, 0.88) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(212, 132, 90, 0.2) !important;
+  border-radius: 100px !important;
+  padding: 8px 14px !important;
+  font-family: 'Garamond', Georgia, serif !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  color: #3D2314 !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+  box-shadow: 0 2px 12px rgba(61, 35, 20, 0.08) !important;
+  -webkit-transition: background 0.2s ease !important;
+  transition: background 0.2s ease !important;
+  white-space: nowrap !important;
+}
+#btn-lang:active { background: rgba(212, 132, 90, 0.15) !important; }
+
+/* Dark chapters — invert language button */
+body.chapter-2-active  #btn-lang,
+body.chapter-4-active  #btn-lang,
+body.chapter-4b-active #btn-lang,
+body.chapter-music-active #btn-lang {
+  background: rgba(20, 10, 6, 0.75) !important;
+  border-color: rgba(242, 201, 138, 0.2) !important;
+  color: rgba(245, 222, 179, 0.85) !important;
+}
+
+/* Move lang button down on mobile to clear the iOS notch */
+@media (max-width: 767px) {
+  #btn-lang {
+    top: calc(env(safe-area-inset-top, 0px) + 14px) !important;
+  }
+}
+
+/* ── Desktop card layout ────────────────────────────────────── */
+@media (min-width: 1024px) {
+  .chapter {
+    position: absolute !important;
+    left: 50% !important;
+    top: 32px !important;
+    bottom: 32px !important;
+    width: min(660px, 90vw) !important;
+    height: auto !important;
+    -webkit-transform: translateX(-50%) scale(0.96) !important;
+    transform: translateX(-50%) scale(0.96) !important;
+    border-radius: 28px !important;
+    box-shadow: 0 40px 100px rgba(61,35,20,0.18),
+                0 0 0 1px rgba(255,220,180,0.12) !important;
+    padding-top: 88px !important;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+  .chapter.is-active {
+    -webkit-transform: translateX(-50%) scale(1) !important;
+    transform: translateX(-50%) scale(1) !important;
+  }
+  .chapter.is-exiting {
+    -webkit-transform: translateX(-50%) scale(1.03) !important;
+    transform: translateX(-50%) scale(1.03) !important;
+  }
+  #chapter-2, #chapter-4, #chapter-4b {
+    border-radius: 28px !important;
+  }
+  .chapter-inner { max-width: 540px !important; }
+  #nav-bottom { bottom: 52px !important; }
+  #btn-lang   { top: 20px !important; right: 20px !important; }
+
+  /* Arrows on sides */
+  #nav-arrow-left  { display: flex !important; left: calc(50% - min(330px,45vw) - 56px) !important; }
+  #nav-arrow-right { display: flex !important; right: calc(50% - min(330px,45vw) - 56px) !important; left: auto !important; }
+}
+
+/* ── Tablet ─────────────────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .chapter {
+    padding-top: 88px !important;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+  .chapter-inner { max-width: 520px !important; }
+}
+
+/* ── LANDSCAPE on phones — compact mode ─────────────────────── */
+@media (orientation: landscape) and (max-height: 500px) {
+  .chapter {
+    padding-top: 52px !important;
+    padding-bottom: 80px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
+    justify-content: flex-start !important;
+  }
+  .hero-age { font-size: clamp(4rem, 14vw, 7rem) !important; }
+  #nav-bottom { bottom: 10px !important; }
+  #btn-lang   { top: 10px !important; }
+  #progress-dots { top: 8px !important; }
+}
+
+/* ── iPad landscape ─────────────────────────────────────────── */
+@media (min-width: 768px) and (orientation: landscape) and (max-width: 1023px) {
+  .chapter {
+    padding-top: 72px !important;
+  }
+}

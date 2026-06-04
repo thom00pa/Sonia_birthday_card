@@ -202,19 +202,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ── LANGUAGE TOGGLE ───────────────────────────────────────
-    const btnLang = document.getElementById('btn-lang');
+    var btnLang = document.getElementById('btn-lang');
     if (btnLang) {
-      btnLang.addEventListener('click', () => {
+      btnLang.textContent = 'EN';
+      btnLang.addEventListener('click', function() {
         try {
           if (Animations.resetTypewriter) Animations.resetTypewriter();
           I18n.toggle();
-          const bL2 = document.getElementById('btn-lang');
-          if (bL2) bL2.textContent = I18n.currentLang === 'es' ? 'EN' : 'ES';
-          const c = document.getElementById('chapter-container');
+          var c = document.getElementById('chapter-container');
           if (c) {
             c.classList.add('lang-transition');
-            setTimeout(() => c.classList.remove('lang-transition'), 400);
+            setTimeout(function() { c.classList.remove('lang-transition'); }, 400);
           }
+          // Update label to show the OTHER language
+          btnLang.textContent = I18n.currentLang === 'es' ? 'EN' : 'ES';
         } catch(e) {}
       });
     }

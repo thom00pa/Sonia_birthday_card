@@ -8,7 +8,6 @@ window.Sections = {
     this._buildChapter4b();
     this._buildChapter5();
     this._buildChapter6();
-    this._buildChapterInstruments();
     this._buildChapter7();
     return document.querySelectorAll('#chapter-container .chapter').length;
   },
@@ -379,102 +378,6 @@ window.Sections = {
     inner.appendChild(grid);
     s.appendChild(inner);
     this._append(s);
-  },
-
-  _buildChapterInstruments() {
-    try {
-      const existingCount = document.querySelectorAll(
-        '#chapter-container .chapter'
-      ).length;
-
-      const s = document.createElement('section');
-      s.className = 'chapter';
-      s.id = 'chapter-instruments';
-      s.dataset.chapter = String(existingCount);
-
-      const inner = document.createElement('div');
-      inner.className = 'chapter-inner';
-
-      // Chapter title
-      const title = document.createElement('p');
-      title.className = 'instruments-title';
-      title.textContent = 'Acordes & Teclas';
-
-      // Subtitle
-      const sub = document.createElement('p');
-      sub.className = 'instruments-subtitle';
-      sub.textContent = 'Los instrumentos que hablan sin palabras';
-
-      // Instrument cards data
-      const instruments = [
-        {
-          nameEs:   'Piano',
-          nameEn:   'Piano',
-          symbol:   '𝄞',      // Musical G-clef unicode symbol
-          gradient: 'linear-gradient(135deg, #1a0a2e 0%, #3d1a5c 40%, #6b2fa0 100%)',
-          accent:   '#c9a0dc'
-        },
-        {
-          nameEs:   'Guitarra Acústica',
-          nameEn:   'Acoustic Guitar',
-          symbol:   '♪',
-          gradient: 'linear-gradient(135deg, #2c1206 0%, #7a3b0a 40%, #c96a1a 100%)',
-          accent:   '#f5c87a'
-        },
-        {
-          nameEs:   'Guitarra Eléctrica',
-          nameEn:   'Electric Guitar',
-          symbol:   '♫',
-          gradient: 'linear-gradient(135deg, #0a1a2e 0%, #0d3a5c 40%, #1a6b9a 100%)',
-          accent:   '#7ec8e3'
-        }
-      ];
-
-      const grid = document.createElement('div');
-      grid.className = 'instruments-grid';
-
-      instruments.forEach(inst => {
-        const card = document.createElement('div');
-        card.className = 'instrument-card';
-        card.style.background = inst.gradient;
-
-        // Large decorative symbol
-        const sym = document.createElement('span');
-        sym.className = 'instrument-symbol';
-        sym.textContent = inst.symbol;
-        sym.style.color = inst.accent;
-
-        // Name overlay
-        const label = document.createElement('div');
-        label.className = 'instrument-label';
-
-        const nameEs = document.createElement('span');
-        nameEs.className = 'instrument-name';
-        nameEs.textContent = inst.nameEs;
-        nameEs.style.color = '#F5DEB3';
-
-        const nameEn = document.createElement('span');
-        nameEn.className = 'instrument-name-en';
-        nameEn.textContent = inst.nameEn;
-        nameEn.style.color = inst.accent;
-
-        label.appendChild(nameEs);
-        label.appendChild(nameEn);
-        card.appendChild(sym);
-        card.appendChild(label);
-        grid.appendChild(card);
-      });
-
-      inner.appendChild(title);
-      inner.appendChild(sub);
-      inner.appendChild(grid);
-      s.appendChild(inner);
-
-      document.getElementById('chapter-container').appendChild(s);
-    } catch(e) {
-      // Silent fail — this chapter is optional
-      console.warn('Instruments chapter build failed:', e);
-    }
   },
 
   // ─── CHAPTER 7: THE CLOSING ─────────────────────────────────────────────────

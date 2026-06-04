@@ -210,39 +210,25 @@
         return;
       }
 
-      // Chapter 4 — Letter Part 1: show instantly with fade-in
       if (activeEl && activeEl.id === 'chapter-4') {
         const body = activeEl.querySelector('[data-i18n-letter]');
         if (body) {
+          const text = (typeof I18n !== 'undefined' && I18n.getLetter)
+            ? I18n.getLetter() : '';
           body.textContent = '';
-          try { body.textContent = I18n.getLetter ? I18n.getLetter() : ''; } catch(e) {}
-          body.style.opacity = '0';
-          body.style.transform = 'translateY(12px)';
-          body.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              body.style.opacity = '1';
-              body.style.transform = 'translateY(0)';
-            });
-          });
+          body.style.opacity = '1';
+          this.revealByParagraph(body, text);
         }
       }
 
-      // Chapter 4b — Letter Part 2: show instantly with fade-in
       if (activeEl && activeEl.id === 'chapter-4b') {
         const body2 = activeEl.querySelector('[data-i18n-letter-p2]');
         if (body2) {
+          const text2 = (typeof I18n !== 'undefined' && I18n.getLetter2)
+            ? I18n.getLetter2() : '';
           body2.textContent = '';
-          try { body2.textContent = I18n.getLetter2 ? I18n.getLetter2() : ''; } catch(e) {}
-          body2.style.opacity = '0';
-          body2.style.transform = 'translateY(12px)';
-          body2.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              body2.style.opacity = '1';
-              body2.style.transform = 'translateY(0)';
-            });
-          });
+          body2.style.opacity = '1';
+          this.revealByParagraph(body2, text2);
         }
       }
 
@@ -252,12 +238,12 @@
     },
 
     resetTypewriter: function () {
-      try {
-        const b1 = document.querySelector('[data-i18n-letter]');
-        const b2 = document.querySelector('[data-i18n-letter-p2]');
-        if (b1) b1.textContent = '';
-        if (b2) b2.textContent = '';
-      } catch(e) {}
+      var b1 = document.querySelector('[data-i18n-letter]');
+      var b2 = document.querySelector('[data-i18n-letter-p2]');
+      if (b1) b1.innerHTML = '';
+      if (b2) b2.innerHTML = '';
+      this._letterTyped   = false;
+      this._letter2Typed  = false;
     },
 
     _sizeCanvas: function () {
@@ -583,6 +569,37 @@
       if (this.confettiPieces.length > 0 && this.confettiFrameId === null) {
         this._startConfettiLoop();
       }
+    },
+
+    revealByParagraph: function(container, fullText) {
+      // Split on double newline — each block is one paragraph
+      const blocks = fullText.split(/\n\n+/).filter(function(b) {
+        return b.trim().length > 0;
+      });
+
+      container.innerHTML = '';
+
+      blocks.forEach(function(block, i) {
+        var p = document.createElement('p');
+        p.style.cssText = [
+          'margin-bottom: 1.2em',
+          'opacity: 0',
+          '-webkit-transform: translateY(10px)',
+          'transform: translateY(10px)',
+          '-webkit-transition: opacity 0.6s ease, -webkit-transform 0.6s ease',
+          'transition: opacity 0.6s ease, transform 0.6s ease',
+          'white-space: pre-wrap'
+        ].join(';');
+        p.textContent = block.trim();
+        container.appendChild(p);
+
+        // Stagger each paragraph by 650ms
+        setTimeout(function() {
+          p.style.opacity = '1';
+          p.style.webkitTransform = 'translateY(0)';
+          p.style.transform = 'translateY(0)';
+        }, 200 + i * 650);
+      });
     }
   };
 })();
